@@ -6,6 +6,7 @@ import { app } from '../Firebase/firebase.config';
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
 
+// eslint-disable-next-line react/prop-types
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -46,7 +47,7 @@ const AuthProvider = ({ children }) => {
         };
         try {
             const { data } = await axios.put(
-                `${import.meta.env.VITE_API_URL}/user`,
+                `http://localhost:5000//users`,
                 currentUser
             );
             return data;
@@ -68,6 +69,7 @@ const AuthProvider = ({ children }) => {
                     // const userData = await saveUser(currentUser);
 
                     const userInfo = { email: currentUser?.email };
+                    console.log(userInfo)
                     // const res = await axios.post('/jwt', userInfo);
 
                     // if (res.data.token) {
