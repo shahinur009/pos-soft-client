@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function TableData() {
   const [products, setProducts] = useState([]);
@@ -27,7 +28,7 @@ export default function TableData() {
   };
 
   useEffect(() => {
-    fetchProducts(); // Initial fetch
+    fetchProducts(); // Initial fetch    
     const interval = setInterval(fetchProducts, 5000); // Poll every 5 seconds
     return () => clearInterval(interval); // Cleanup on unmount
   }, []);
@@ -38,15 +39,15 @@ export default function TableData() {
         <table className="table-auto w-full border-collapse border border-teal-400">
           <thead>
             <tr className="bg-teal-600 text-white">
-              <th className="px-4 py-2">Sl</th>
-              <th className="px-4 py-2">Product Code</th>
-              <th className="px-4 py-2">Product Name</th>
-              <th className="px-4 py-2">Category</th>
-              <th className="px-4 py-2">Purchase Price</th>
-              <th className="px-4 py-2">Sales Price</th>
-              <th className="px-4 py-2">Wholesale Price</th>
-              <th className="px-4 py-2">Unit</th>
-              <th className="px-4 py-2">Actions</th>
+              <th className="p-1">ক্রমিক নং </th>
+              <th className="p-1">প্রোডাক্ট কোড </th>
+              <th className="p-1">প্রোডাক্ট নাম</th>
+              <th className="p-1">প্রোডাক্টের শ্রেণী</th>
+              <th className="p-1">ক্রয় মূল্য </th>
+              <th className="p-1">খুচরা বিক্রয় মূল্য</th>
+              <th className="p-1">পাইকারি বিক্রয় মূল্য</th>
+              <th className="p-1">স্টকের পরিমান </th>
+              <th className="p-1"> প্রক্রিয়া </th>
             </tr>
           </thead>
           <tbody>
@@ -61,13 +62,16 @@ export default function TableData() {
                 <td className="border px-4 py-2">{product.wholeSales}</td>
                 <td className="border px-4 py-2">Pcs</td>
                 <td className="border px-4 py-2">
-                  <button className="bg-blue-500 text-white px-2 py-1 rounded">Edit</button>
-                  <button
-                    className="bg-red-500 text-white px-2 py-1 rounded ml-2"
-                    onClick={() => deleteProduct(product._id)}
-                  >
-                    Delete
-                  </button>
+                  <div className="">
+                    <Link to={`/update-product/${product._id}`}
+                      className="bg-[#006A62] text-white w-[134px] p-1 block rounded mb-2">পরিবর্তন করুন</Link> 
+                    <button
+                      className="bg-red-500 text-white w-[134px] p-1 rounded mt-2"
+                      onClick={() => deleteProduct(product._id)}
+                    >
+                      মুছে ফেলুন
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}

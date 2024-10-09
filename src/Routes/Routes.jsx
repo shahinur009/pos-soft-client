@@ -15,6 +15,8 @@ import ReturnProductsAdd from "../Dashboard/Pages/ReturnProductsAdd/ReturnProduc
 import SalesReport from "../Dashboard/Pages/SalesReport/SalesReport";
 import Stock from "../Dashboard/Pages/Stock/Stock";
 import Sales from "../Dashboard/Pages/Sales/Sales";
+import UpdateProduct from "../Dashboard/Pages/UpdateProducts/UpdateProduct";
+import ProductsList from "../Dashboard/Pages/ProductList/ProductList";
 
 
 
@@ -27,6 +29,10 @@ export const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home />
+            },
+            {
+                path: 'update-product/:id',
+                element: <UpdateProduct />
             },
         ]
     },
@@ -43,6 +49,10 @@ export const router = createBrowserRouter([
                 path: 'add-product',
                 element: <AddProducts />
             },
+            // {
+            //     path: 'update-product/:id',
+            //     element: <UpdateProduct />
+            // },
             {
                 path: 'sales',
                 element: <Sales />
@@ -74,6 +84,10 @@ export const router = createBrowserRouter([
             {
                 path: 'stock',
                 element: <Stock />
+            },
+            {
+                path: 'products-list',
+                element: <ProductsList />
             },
         ]
 
