@@ -14,13 +14,23 @@ export default function TableData() {
     }
   };
 
+  // Function to delete a product
+  const deleteProduct = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/products/${id}`);
+      // Remove the deleted product from the state
+      console.log(id)
+      setProducts(products.filter((product) => product._id !== id));
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
+  };
+
   useEffect(() => {
     fetchProducts(); // Initial fetch
-    const interval = setInterval(fetchProducts, 5000);
-    console.log(interval) // Poll every 5 seconds
+    const interval = setInterval(fetchProducts, 5000); // Poll every 5 seconds
     return () => clearInterval(interval); // Cleanup on unmount
   }, []);
-  // console.log(interval)
 
   return (
     <div>
@@ -52,7 +62,12 @@ export default function TableData() {
                 <td className="border px-4 py-2">Pcs</td>
                 <td className="border px-4 py-2">
                   <button className="bg-blue-500 text-white px-2 py-1 rounded">Edit</button>
-                  <button className="bg-red-500 text-white px-2 py-1 rounded ml-2">Delete</button>
+                  <button
+                    className="bg-red-500 text-white px-2 py-1 rounded ml-2"
+                    onClick={() => deleteProduct(product._id)}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
