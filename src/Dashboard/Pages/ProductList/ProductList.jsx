@@ -1,13 +1,49 @@
-import { useState } from "react";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 const ProductsList = () => {
-    const [selectedOption1, setSelectedOption1] = useState("");
-    const [selectedOption2, setSelectedOption2] = useState("");
+    const [categories, setCategories] = useState([]); // To hold distinct categories
+    const [selectedCategory, setSelectedCategory] = useState(""); // Selected category
+    const [products, setProducts] = useState([]); // To hold products based on the category
 
-    const handleShowReport = () => {
-        // Logic to handle the report based on selected options
-        console.log(`Option 1: ${ selectedOption1 }, Option 2: ${ selectedOption2 }`);
+    // Fetch categories from the backend
+    const fetchCategories = async () => {
+        try {
+            const response = await axios.get("http://localhost:5000/products-report"); // Fetch all products
+            const allProducts = response.data;
+
+            // Extract distinct categories from the products
+            const distinctCategories = [
+                ...new Set(allProducts.map(product => product.productCategory))
+            ];
+
+            setCategories(distinctCategories);
+        } catch (error) {
+            console.error("Error fetching categories:", error);
+        }
     };
+
+    // Fetch products based on the selected category or all products if no category is selected
+    const fetchProducts = async (category) => {
+        try {
+            const response = await axios.get("http://localhost:5000/products-report", {
+                params: { category } // If category is empty, it'll fetch all products
+            });
+            setProducts(response.data); // Set the products state
+        } catch (error) {
+            console.error("Error fetching products:", error);
+        }
+    };
+
+    // Fetch categories when component mounts
+    useEffect(() => {
+        fetchCategories();
+    }, []);
+
+    // Fetch products whenever the selected category changes
+    useEffect(() => {
+        fetchProducts(selectedCategory);
+    }, [selectedCategory]);
 
     return (
         <section>
@@ -15,76 +51,67 @@ const ProductsList = () => {
                 <p className="absolute -top-4 left-5 text-xl font-semibold bg-[#D1D5DB] h-4">
                     Products List
                 </p>
-                <p className="text-lg">Search Type</p>
-                <select
-                    value={selectedOption1}
-                    onChange={(e) => setSelectedOption1(e.target.value)}
-                    className="block w-48 p-2 rounded outline-none border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                >
-                    <option value="">-- Choose an option --</option>
-                    <option value="option1">Option 1</option>
-                    <option value="option2">Option 2</option>
-                    <option value="option3">Option 3</option>
-                </select>
+                <p className="text-lg">সব প্রোডাক্ট দেখুন </p>
 
                 <select
-                    value={selectedOption2}
-                    onChange={(e) => setSelectedOption2(e.target.value)}
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
                     className="block w-48 p-2 rounded outline-none border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                 >
-                    <option value="">-- Choose an option --</option>
-                    <option value="optionA">Option A</option>
-                    <option value="optionB">Option B</option>
-                    <option value="optionC">Option C</option>
+                    <option value="">-- সব প্রোডাক্ট --</option> {/* Option to show all products */}
+                    {categories.map((category, index) => (
+                        <option key={index} value={category}>
+                            {category}
+                        </option>
+                    ))}
                 </select>
-
-                <button
-                    onClick={handleShowReport}
-                    className="bg-[#1B6AAA] text-white px-4 py-2 rounded-md shadow"
-                >
-                    Show Report
-                </button>
             </div>
 
-            {/* here is table */}
+            {/* Display products in a table */}
             <div>
                 <table className="min-w-full bg-white border-collapse">
                     <thead>
                         <tr>
                             <th className="py-2 px-4 bg-[#146C94] text-white border border-gray-300">
-                                SL
+                            প্রোডাক্ট কোড 
                             </th>
                             <th className="py-2 px-4 bg-[#146C94] text-white border border-gray-300">
-                                Product ID
+                            প্রোডাক্ট নাম 
                             </th>
                             <th className="py-2 px-4 bg-[#146C94] text-white border border-gray-300">
-                                Product Name
+                            প্রোডাক্টের শ্রেণী 
                             </th>
                             <th className="py-2 px-4 bg-[#146C94] text-white border border-gray-300">
-                                Category
+                                ক্রয় দাম
                             </th>
                             <th className="py-2 px-4 bg-[#146C94] text-white border border-gray-300">
-                                Product Price
+                                খুচরা বিক্রয় দাম
+                            </th>
+                            <th className="py-2 px-4 bg-[#146C94] text-white border border-gray-300">
+                                পাইকারি বিক্রয় দাম
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map((product, index) => (
-                            <tr key={product.id} className="border-b">
+                        {products.map((product) => (
+                            <tr key={product._id} className="border-b">
                                 <td className="py-2 px-4 text-center border border-gray-300">
-                                    {index + 1}
+                                    {product.productCode}
                                 </td>
                                 <td className="py-2 px-4 text-center border border-gray-300">
-                                    {product.id}
+                                    {product.productName}
                                 </td>
                                 <td className="py-2 px-4 text-center border border-gray-300">
-                                    {product.name}
+                                    {product.productCategory}
                                 </td>
                                 <td className="py-2 px-4 text-center border border-gray-300">
-                                    {product.category}
+                                    {product.buyRate}
                                 </td>
                                 <td className="py-2 px-4 text-center border border-gray-300">
-                                    {product.price}
+                                    {product.saleRate}
+                                </td>
+                                <td className="py-2 px-4 text-center border border-gray-300">
+                                {product.wholeSales}
                                 </td>
                             </tr>
                         ))}
@@ -94,13 +121,5 @@ const ProductsList = () => {
         </section>
     );
 };
-
-const data = [
-    { id: "P001", name: "Product 1", category: "Category A", price: 500 },
-    { id: "P002", name: "Product 2", category: "Category B", price: 1500 },
-    { id: "P003", name: "Product 3", category: "Category C", price: 2500 },
-    { id: "P004", name: "Product 4", category: "Category D", price: 3500 },
-    { id: "P005", name: "Product 5", category: "Category E", price: 4500 },
-];
 
 export default ProductsList;

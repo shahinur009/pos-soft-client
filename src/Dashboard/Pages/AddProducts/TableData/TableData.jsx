@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export default function TableData() {
   const [products, setProducts] = useState([]);
@@ -20,8 +21,24 @@ export default function TableData() {
     try {
       await axios.delete(`http://localhost:5000/products/${id}`);
       // Remove the deleted product from the state
-      console.log(id)
       setProducts(products.filter((product) => product._id !== id));
+      Swal.fire({
+        title: "ডিলেট করতে চান?",
+        text: "ডিলেট হয়ে যাবে প্রোডাক্ট ",
+        icon: "warning",
+        showCancelButton: true, 
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Delete!" 
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: "Deleted!",
+            text: "ডিলেট সফল হয়েছে ",
+            icon: "success"
+          });
+        }
+      });
     } catch (error) {
       console.error("Error deleting product:", error);
     }
