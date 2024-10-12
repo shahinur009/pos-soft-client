@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 export default function AddCustomerTableData() {

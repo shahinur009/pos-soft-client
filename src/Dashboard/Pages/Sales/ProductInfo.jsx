@@ -87,21 +87,6 @@ const ProductInfo = ({ handleAddToCard }) => {
                     </div>
 
                     <div className="mb-2 flex items-center justify-center gap-2">
-                        <label htmlFor="name" className="mr-2 w-[20%]">
-                            Name
-                        </label>
-                        <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleInputChange}
-                            className="border p-1 rounded w-[80%]"
-                            readOnly
-                        />
-                    </div>
-
-                    <div className="mb-2 flex items-center justify-center gap-2">
                         <label htmlFor="mobile" className="mr-2 w-[20%]">
                             Mobile No
                         </label>
@@ -112,6 +97,19 @@ const ProductInfo = ({ handleAddToCard }) => {
                             value={formData.mobile}
                             onChange={handleInputChange}
                             placeholder="Mobile No"
+                            className="border p-1 rounded w-[80%]"
+                        />
+                    </div>
+                    <div className="mb-2 flex items-center justify-center gap-2">
+                        <label htmlFor="previousDue" className="mr-2 w-[20%]">
+                        Previous Due 
+                        </label>
+                        <input
+                            type="number"
+                            id="previousDue"
+                            name="previousDue"
+                            value={formData.mobile}
+                            onChange={handleInputChange}
                             className="border p-1 rounded w-[80%]"
                         />
                     </div>
