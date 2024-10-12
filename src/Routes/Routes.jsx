@@ -17,6 +17,7 @@ import Stock from "../Dashboard/Pages/Stock/Stock";
 import Sales from "../Dashboard/Pages/Sales/Sales";
 import UpdateProduct from "../Dashboard/Pages/UpdateProducts/UpdateProduct";
 import ProductsList from "../Dashboard/Pages/ProductList/ProductList";
+import AddCustomer from "../Dashboard/Pages/AddCustomer/AddCustomer";
 
 
 
@@ -88,6 +89,10 @@ export const router = createBrowserRouter([
             {
                 path: 'products-list',
                 element: <ProductsList />
+            },
+            {
+                path: 'add-customer',
+                element: <AddCustomer />
             },
         ]
 
