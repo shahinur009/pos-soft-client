@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Select from "react-select"; // Import react-select
 import axios from "axios"; // Import axios to fetch data from MongoDB
+import { Link } from "react-router-dom";
 
 const ProductsInfo = ({ handleAddToCard }) => {
     const [formData, setFormData] = useState({
@@ -61,12 +62,12 @@ const ProductsInfo = ({ handleAddToCard }) => {
     return (
         <div>
             <div className="bg-blue-200 p-1 rounded text-sm">
-                <h2 className="font-bold mb-2">Product Information</h2>
+                <h2 className="font-bold mb-2">প্রোডাক্টের তথ্য </h2>
 
                 {/* Product Name Select */}
                 <div className="mb-2 flex items-center justify-center">
                     <label htmlFor="product" className="mr-2 w-[20%]">
-                        Product
+                    প্রোডাক্ট
                     </label>
                     <div className="w-[80%] flex justify-center gap-1">
                         <Select
@@ -78,15 +79,14 @@ const ProductsInfo = ({ handleAddToCard }) => {
                             placeholder="Select Product"
                             className="w-full"
                         />
-                        <button className="bg-red-500 text-white px-2 py-1">X</button>
-                        <button className="bg-green-500 text-white px-2 py-1">+</button>
+                        <Link to='/dashboard/add-product' className="bg-green-500 text-white px-2 py-1">+</Link>
                     </div>
                 </div>
 
                 {/* Stock */}
                 <div className="mb-2 flex items-center justify-center">
                     <label htmlFor="stock" className="mr-2 w-[20%]">
-                        Stock
+                        স্টক
                     </label>
                     <input
                         type="number"
@@ -101,7 +101,7 @@ const ProductsInfo = ({ handleAddToCard }) => {
                 {/* Sale Rate */}
                 <div className="mb-2 flex items-center justify-center">
                     <label htmlFor="rate" className="mr-2 w-[20%]">
-                        Sale Rate
+                        বিক্রয় মূল্য 
                     </label>
                     <input
                         type="number"
@@ -117,7 +117,7 @@ const ProductsInfo = ({ handleAddToCard }) => {
                 {/* Quantity */}
                 <div className="mb-2 flex items-center justify-center">
                     <label htmlFor="qty" className="mr-2 w-[20%]">
-                        Qty
+                        পরিমান 
                     </label>
                     <input
                         type="number"
@@ -133,7 +133,7 @@ const ProductsInfo = ({ handleAddToCard }) => {
                 {/* Total */}
                 <div className="mb-2 flex items-center justify-center">
                     <label htmlFor="total" className="mr-2 w-[20%]">
-                        Total
+                        মোট টাকা 
                     </label>
                     <input
                         type="number"
@@ -147,13 +147,13 @@ const ProductsInfo = ({ handleAddToCard }) => {
                     />
                 </div>
 
-                {/* Add to Cart Button */}
+                {/* Add to Cart Button */} 
                 <div className="flex justify-end">
                     <button
                         onClick={handleAddCartClick}
                         className="bg-orange-500 text-white px-4 py-2 mt-2"
                     >
-                        Add Cart
+                        কার্ডে এড করুন
                     </button>
                 </div>
             </div>

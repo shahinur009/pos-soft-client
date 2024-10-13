@@ -59,39 +59,12 @@ const CustomerInfo = () => {
     return (
         <div>
             <div className="bg-blue-200 p-2 rounded text-sm">
-                <h2 className="font-bold mb-2">Customer Information</h2>
-
-                {/* Sales Type */}
-                <div className="mb-2">
-                    <label className="mr-2">Sales Type</label>
-                    <input
-                        type="radio"
-                        name="salesType"
-                        id="retail"
-                        value="retail"
-                        checked={formData.salesType === "retail"}
-                        onChange={handleInputChange}
-                        className="mr-1 p-1"
-                    />
-                    <label htmlFor="retail" className="mr-2">
-                        Retail
-                    </label>
-                    <input
-                        type="radio"
-                        name="salesType"
-                        id="wholesale"
-                        value="wholesale"
-                        checked={formData.salesType === "wholesale"}
-                        onChange={handleInputChange}
-                        className="mr-1"
-                    />
-                    <label htmlFor="wholesale">Wholesale</label>
-                </div>
+                <h2 className="font-bold mb-2">ক্রেতার তথ্য  </h2>
 
                 {/* Customer Select */}
                 <div className="mb-2 flex items-center justify-center gap-2">
                     <label htmlFor="customer" className="mr-2 w-[20%]">
-                        Customer
+                        ক্রেতার নাম
                     </label>
                     <div className="w-[80%] flex justify-center gap-1">
                         <Select
@@ -115,7 +88,7 @@ const CustomerInfo = () => {
                 {/* Mobile */}
                 <div className="mb-2 flex items-center justify-center gap-2">
                     <label htmlFor="mobile" className="mr-2 w-[20%]">
-                        Mobile No
+                        মোবাইল 
                     </label>
                     <input
                         type="text"
@@ -131,7 +104,7 @@ const CustomerInfo = () => {
                 {/* Previous Due */}
                 <div className="mb-2 flex items-center justify-center gap-2">
                     <label htmlFor="previousDue" className="mr-2 w-[20%]">
-                        Previous Due
+                        আগের জের 
                     </label>
                     <input
                         type="number"
@@ -146,7 +119,7 @@ const CustomerInfo = () => {
                 {/* Address */}
                 <div className="flex items-center justify-center gap-2">
                     <label htmlFor="address" className="mr-2 w-[20%]">
-                        Address
+                        ঠিকানা 
                     </label>
                     <textarea
                         id="address"
@@ -154,7 +127,7 @@ const CustomerInfo = () => {
                         value={formData.address}
                         onChange={handleInputChange}
                         placeholder="Address"
-                        className="border p-2 rounded w-[80%]"
+                        className="border p-2 resize-none h-24  rounded w-[80%]"
                     />
                 </div>
             </div>

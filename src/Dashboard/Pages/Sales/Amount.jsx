@@ -19,13 +19,14 @@ const Amount = () => {
             [name]: value,
         }));
     };
+
     return (
         <>
             <div className="bg-blue-200 p-4 rounded text-sm">
-                <h2 className="font-bold mb-2">Amount Details</h2>
+                <h2 className="font-bold mb-2">লেনদেন তথ্য </h2>
                 <div className="mb-1 flex items-center">
                     <label htmlFor="subtotal" className="mr-2 w-[20%]">
-                        SubTotal
+                       সাময়িক টাকা 
                     </label>
                     <input
                         type="number"
@@ -40,7 +41,7 @@ const Amount = () => {
 
                 <div className="mb-1 flex items-center">
                     <label htmlFor="discount" className="mr-2 w-[20%]">
-                        Discount
+                        কমিশন 
                     </label>
                     <div className="flex gap-2 w-[80%] items-center">
                         <input
@@ -58,7 +59,7 @@ const Amount = () => {
 
                 <div className="mb-1 flex items-center">
                     <label htmlFor="vat" className="mr-2 w-[20%]">
-                        Vat
+                        ভ্যাট 
                     </label>
                     <div className="flex gap-2 w-[80%] items-center">
                         <input
@@ -76,7 +77,7 @@ const Amount = () => {
 
                 <div className="mb-1">
                     <label htmlFor="transport" className="mr-2">
-                        Transport / Labour Cost
+                        পরিবহন / লেবার খরচ 
                     </label>
                     <input
                         type="number"
@@ -91,7 +92,7 @@ const Amount = () => {
 
                 <div className="mb-1">
                     <label htmlFor="totalAmount" className="mr-2">
-                        Total Amount
+                        মোট টাকা 
                     </label>
                     <input
                         type="number"
@@ -106,7 +107,7 @@ const Amount = () => {
 
                 <div className="mb-1">
                     <label htmlFor="cashPaid" className="mr-2">
-                        Cash Paid
+                       ক্যাশ জমা 
                     </label>
                     <input
                         type="number"
@@ -118,25 +119,9 @@ const Amount = () => {
                         className="border p-1 rounded w-full"
                     />
                 </div>
-
-                <div className="mb-1">
-                    <label htmlFor="bankPaid" className="mr-2">
-                        Bank Paid
-                    </label>
-                    <input
-                        type="number"
-                        id="bankPaid"
-                        name="bankPaid"
-                        value={formData.bankPaid}
-                        onChange={handleInputChange}
-                        placeholder="0"
-                        className="border p-1 rounded w-full"
-                    />
-                </div>
-
                 <div className="mb-1">
                     <label htmlFor="due" className="mr-2 block">
-                        Due
+                        বাকী 
                     </label>
                     <input
                         type="number"
@@ -151,7 +136,7 @@ const Amount = () => {
 
                 <div className="mb-1">
                     <label htmlFor="previousDue" className="mr-2">
-                        Previous Due
+                        আগের বাকী 
                     </label>
                     <input
                         type="number"
