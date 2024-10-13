@@ -3,7 +3,7 @@ import CustomerInfo from "./CustomerInfo";
 import ProductsInfo from "./ProductsInfo";
 import Amount from "./Amount";
 
-const ProductInfo = ({ handleAddToCard }) => {
+const ProductInfo = () => {
 
 
 
@@ -14,7 +14,7 @@ const ProductInfo = ({ handleAddToCard }) => {
             <CustomerInfo />
 
             {/* Product Information */}
-            <ProductsInfo handleAddToCard={handleAddToCard} />
+            <ProductsInfo />
 
             {/* Amount Details */}
             <Amount />

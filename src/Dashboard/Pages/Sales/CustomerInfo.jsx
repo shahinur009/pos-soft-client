@@ -47,6 +47,17 @@ const CustomerInfo = () => {
         }));
     };
 
+    // Save data to local storage when all fields are filled
+    useEffect(() => {
+        // Check if all required fields are filled
+        const { name, mobile, address, PreviousDue } = formData;
+        if (name && mobile && address && PreviousDue) {
+            // Save formData to localStorage
+            localStorage.setItem('customerData', JSON.stringify(formData));
+            console.log("Form data saved to local storage:", formData);
+        }
+    }, [formData]); // Watch formData for changes
+
     // Convert customer data to react-select format
     const customerOptions = customers.map((customer) => ({
         value: customer._id, // Use customer ID as value
@@ -88,7 +99,7 @@ const CustomerInfo = () => {
                 {/* Mobile */}
                 <div className="mb-2 flex items-center justify-center gap-2">
                     <label htmlFor="mobile" className="mr-2 w-[20%]">
-                        মোবাইল 
+                        মোবাইল
                     </label>
                     <input
                         type="text"
@@ -104,7 +115,7 @@ const CustomerInfo = () => {
                 {/* Previous Due */}
                 <div className="mb-2 flex items-center justify-center gap-2">
                     <label htmlFor="previousDue" className="mr-2 w-[20%]">
-                        আগের জের 
+                        আগের জের
                     </label>
                     <input
                         type="number"
@@ -119,7 +130,7 @@ const CustomerInfo = () => {
                 {/* Address */}
                 <div className="flex items-center justify-center gap-2">
                     <label htmlFor="address" className="mr-2 w-[20%]">
-                        ঠিকানা 
+                        ঠিকানা
                     </label>
                     <textarea
                         id="address"

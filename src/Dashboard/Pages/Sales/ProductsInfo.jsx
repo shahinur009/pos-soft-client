@@ -3,7 +3,7 @@ import Select from "react-select"; // Import react-select
 import axios from "axios"; // Import axios to fetch data from MongoDB
 import { Link } from "react-router-dom";
 
-const ProductsInfo = ({ handleAddToCard }) => {
+const ProductsInfo = () => {
     const [formData, setFormData] = useState({
         product: "",
         stock: "",
@@ -46,9 +46,40 @@ const ProductsInfo = ({ handleAddToCard }) => {
         }));
     };
 
-    const handleAddCartClick = () => {
-        // Call the handleAddToCard function with form data
-        handleAddToCard(formData);
+    const handleAdd = () => {
+        const { product, stock, rate, qty } = formData;
+        // Check if all required fields are filled
+        if (product && stock && rate > 0 && qty > 0) {
+            // Retrieve existing product data from local storage
+            const existingProducts = JSON.parse(localStorage.getItem("productData")) || [];
+
+            // Create a new product entry
+            const newProduct = {
+                product,
+                stock,
+                rate,
+                qty,
+                total: rate * qty, // Calculate total for this product
+            };
+
+            // Append the new product to the existing products array
+            existingProducts.push(newProduct);
+
+            // Save the updated products back to local storage
+            localStorage.setItem("productData", JSON.stringify(existingProducts));
+
+            console.log("Product data saved to local storage:", newProduct);
+            // Optionally, reset formData after adding to cart
+            setFormData({
+                product: "",
+                stock: "",
+                rate: 0,
+                qty: 0,
+            });
+            setSelectedProduct(null); // Reset selected product
+        } else {
+            alert("Please fill all fields before adding to the cart.");
+        }
     };
 
     // Convert product data to react-select format
@@ -61,13 +92,13 @@ const ProductsInfo = ({ handleAddToCard }) => {
 
     return (
         <div>
-            <div className="bg-blue-200 p-1 rounded text-sm">
+            <div className="bg-blue-200 p-1 mb-2 rounded text-sm">
                 <h2 className="font-bold mb-2">প্রোডাক্টের তথ্য </h2>
 
                 {/* Product Name Select */}
                 <div className="mb-2 flex items-center justify-center">
                     <label htmlFor="product" className="mr-2 w-[20%]">
-                    প্রোডাক্ট
+                        প্রোডাক্ট
                     </label>
                     <div className="w-[80%] flex justify-center gap-1">
                         <Select
@@ -79,7 +110,12 @@ const ProductsInfo = ({ handleAddToCard }) => {
                             placeholder="Select Product"
                             className="w-full"
                         />
-                        <Link to='/dashboard/add-product' className="bg-green-500 text-white px-2 py-1">+</Link>
+                        <Link
+                            to="/dashboard/add-product"
+                            className="bg-green-500 text-white px-2 py-1"
+                        >
+                            +
+                        </Link>
                     </div>
                 </div>
 
@@ -101,7 +137,7 @@ const ProductsInfo = ({ handleAddToCard }) => {
                 {/* Sale Rate */}
                 <div className="mb-2 flex items-center justify-center">
                     <label htmlFor="rate" className="mr-2 w-[20%]">
-                        বিক্রয় মূল্য 
+                        বিক্রয় মূল্য
                     </label>
                     <input
                         type="number"
@@ -117,7 +153,7 @@ const ProductsInfo = ({ handleAddToCard }) => {
                 {/* Quantity */}
                 <div className="mb-2 flex items-center justify-center">
                     <label htmlFor="qty" className="mr-2 w-[20%]">
-                        পরিমান 
+                        পরিমান
                     </label>
                     <input
                         type="number"
@@ -133,7 +169,7 @@ const ProductsInfo = ({ handleAddToCard }) => {
                 {/* Total */}
                 <div className="mb-2 flex items-center justify-center">
                     <label htmlFor="total" className="mr-2 w-[20%]">
-                        মোট টাকা 
+                        মোট টাকা
                     </label>
                     <input
                         type="number"
@@ -147,13 +183,13 @@ const ProductsInfo = ({ handleAddToCard }) => {
                     />
                 </div>
 
-                {/* Add to Cart Button */} 
+                {/* Add to Cart Button */}
                 <div className="flex justify-end">
                     <button
-                        onClick={handleAddCartClick}
-                        className="bg-orange-500 text-white px-4 py-2 mt-2"
+                        onClick={handleAdd}
+                        className="btn btn-success"
                     >
-                        কার্ডে এড করুন
+                        Add to Cart
                     </button>
                 </div>
             </div>
