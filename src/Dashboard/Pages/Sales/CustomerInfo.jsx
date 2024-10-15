@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Select from "react-select"; // Import react-select
 import axios from "axios"; // Import axios to fetch data from MongoDB
+import { useAuth } from "../../../provider/useAuth";
 
 const CustomerInfo = () => {
+    const { selectedCustomer, setSelectedCustomer } = useAuth()
     const [formData, setFormData] = useState({
         salesType: "retail",
         PreviousDue: "",
@@ -12,7 +14,6 @@ const CustomerInfo = () => {
         address: "",
     });
     const [customers, setCustomers] = useState([]); // State to store customers from MongoDB
-    const [selectedCustomer, setSelectedCustomer] = useState(null); // State for selected customer
 
     // Fetch customers from MongoDB
     useEffect(() => {
@@ -46,17 +47,6 @@ const CustomerInfo = () => {
             [name]: value,
         }));
     };
-
-    // Save data to local storage when all fields are filled
-    useEffect(() => {
-        // Check if all required fields are filled
-        const { name, mobile, address, PreviousDue } = formData;
-        if (name && mobile && address && PreviousDue) {
-            // Save formData to localStorage
-            localStorage.setItem('customerData', JSON.stringify(formData));
-            console.log("Form data saved to local storage:", formData);
-        }
-    }, [formData]); // Watch formData for changes
 
     // Convert customer data to react-select format
     const customerOptions = customers.map((customer) => ({

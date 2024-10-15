@@ -2,8 +2,11 @@ import { useState, useEffect } from "react";
 import Select from "react-select"; // Import react-select
 import axios from "axios"; // Import axios to fetch data from MongoDB
 import { Link } from "react-router-dom";
+import { useAuth } from "../../../provider/useAuth";
 
 const ProductsInfo = () => {
+    const [selectedProduct, setSelectedProduct] = useState(null);
+    const { productsDetails, setProductsDetails } = useAuth()
     const [formData, setFormData] = useState({
         product: "",
         stock: "",
@@ -12,7 +15,6 @@ const ProductsInfo = () => {
     });
 
     const [products, setProducts] = useState([]); // State to store products from MongoDB
-    const [selectedProduct, setSelectedProduct] = useState(null); // State for selected product
 
     // Fetch products from MongoDB
     useEffect(() => {
@@ -46,42 +48,6 @@ const ProductsInfo = () => {
         }));
     };
 
-    const handleAdd = () => {
-        const { product, stock, rate, qty } = formData;
-        // Check if all required fields are filled
-        if (product && stock && rate > 0 && qty > 0) {
-            // Retrieve existing product data from local storage
-            const existingProducts = JSON.parse(localStorage.getItem("productData")) || [];
-
-            // Create a new product entry
-            const newProduct = {
-                product,
-                stock,
-                rate,
-                qty,
-                total: rate * qty, // Calculate total for this product
-            };
-
-            // Append the new product to the existing products array
-            existingProducts.push(newProduct);
-
-            // Save the updated products back to local storage
-            localStorage.setItem("productData", JSON.stringify(existingProducts));
-
-            console.log("Product data saved to local storage:", newProduct);
-            // Optionally, reset formData after adding to cart
-            setFormData({
-                product: "",
-                stock: "",
-                rate: 0,
-                qty: 0,
-            });
-            setSelectedProduct(null); // Reset selected product
-        } else {
-            alert("Please fill all fields before adding to the cart.");
-        }
-    };
-
     // Convert product data to react-select format
     const productOptions = products.map((product) => ({
         value: product._id, // Use product ID as value
@@ -90,10 +56,19 @@ const ProductsInfo = () => {
         saleRate: product.saleRate,
     }));
 
+    // Handle Add to Cart button click
+    const handleAddToCart = () => {
+        setProductsDetails((prevDetails) => [
+            ...prevDetails, // Keep the previous products
+            { ...formData, total: formData.rate * formData.qty } // Add the new product
+        ]);
+        console.log(productsDetails);
+    };
+
     return (
         <div>
             <div className="bg-blue-200 p-1 mb-2 rounded text-sm">
-                <h2 className="font-bold mb-2">প্রোডাক্টের তথ্য </h2>
+                <h2 className="font-bold mb-2">প্রোডাক্টের তথ্য</h2>
 
                 {/* Product Name Select */}
                 <div className="mb-2 flex items-center justify-center">
@@ -178,7 +153,7 @@ const ProductsInfo = () => {
                         value={formData.rate * formData.qty}
                         onChange={handleInputChange}
                         placeholder="Total"
-                        className="border p-1 rounded w-[80%]"
+                        className="border p-1 rounded w-[80%] outline-none bg-gray-600/30"
                         readOnly
                     />
                 </div>
@@ -186,7 +161,7 @@ const ProductsInfo = () => {
                 {/* Add to Cart Button */}
                 <div className="flex justify-end">
                     <button
-                        onClick={handleAdd}
+                        onClick={handleAddToCart} // Handle Add to Cart click
                         className="btn btn-success"
                     >
                         Add to Cart

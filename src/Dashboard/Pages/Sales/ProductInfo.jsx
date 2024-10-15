@@ -1,12 +1,8 @@
-
 import CustomerInfo from "./CustomerInfo";
 import ProductsInfo from "./ProductsInfo";
 import Amount from "./Amount";
 
 const ProductInfo = () => {
-
-
-
 
     return (
         <>

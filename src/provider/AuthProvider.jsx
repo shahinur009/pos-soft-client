@@ -23,7 +23,6 @@ const AuthProvider = ({ children }) => {
         return signInWithEmailAndPassword(auth, email, password);
     };
 
-
     // update profile here
     const updateUserProfile = (name, photo) => {
         return updateProfile(auth.currentUser, {
@@ -91,8 +90,29 @@ const AuthProvider = ({ children }) => {
         return () => unsubscribe();
     }, []);
 
+    // here have some functionality from zahid
+    const [selectedCustomer, setSelectedCustomer] = useState(null);
+    const [productsDetails, setProductsDetails] = useState([])
+    const [subtotalAmount, setSubtotalAmount] = useState(null)
+
+    // console.log(selectedCustomer);
+
+
+
     const authInfo = {
-        user, loading, createUser, signIn, logOut, updateUserProfile, saveUser
+        user,
+        loading,
+        selectedCustomer,
+        productsDetails,
+        subtotalAmount,
+        setSubtotalAmount,
+        setProductsDetails,
+        setSelectedCustomer,
+        createUser,
+        signIn,
+        logOut,
+        updateUserProfile,
+        saveUser
     }
 
 

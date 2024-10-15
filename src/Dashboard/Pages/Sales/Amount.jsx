@@ -1,6 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAuth } from "../../../provider/useAuth";
+import axios from "axios";
 
 const Amount = () => {
+    const { selectedCustomer, subtotalAmount, productsDetails } = useAuth();
+
     const [formData, setFormData] = useState({
         subtotal: 0,
         discount: 0,
@@ -8,40 +12,101 @@ const Amount = () => {
         transport: 0,
         totalAmount: 0,
         cashPaid: 0,
-        bankPaid: 0,
         due: 0,
-        PreviousDue: 0,
+        previousDue: 0,
     });
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }));
+        setFormData({
+            ...formData,
+            [name]: parseFloat(value) || 0, // Parse inputs as numbers
+        });
     };
 
+    useEffect(() => {
+        if (selectedCustomer && selectedCustomer?.PreviousDue) {
+            setFormData((prevData) => ({
+                ...prevData,
+                previousDue: selectedCustomer?.PreviousDue,
+            }));
+        }
+    }, [selectedCustomer]);
+
+    useEffect(() => {
+        if (subtotalAmount) {
+            setFormData((prevData) => ({
+                ...prevData,
+                subtotal: subtotalAmount,
+            }));
+        }
+    }, [subtotalAmount]);
+
+    // Calculate totalAmount and due whenever formData changes
+    useEffect(() => {
+        const { subtotal, discount, vat, transport, cashPaid } = formData;
+
+        // Calculate discount and vat amounts
+        const discountAmount = (subtotal * discount) / 100;
+        const vatAmount = (subtotal * vat) / 100;
+
+        // Calculate total amount
+        const calculatedTotal = subtotal - discountAmount + vatAmount + transport;
+
+        // Calculate due by subtracting cashPaid from totalAmount
+        const dueAmount = calculatedTotal - cashPaid;
+
+        setFormData((prevData) => ({
+            ...prevData,
+            totalAmount: calculatedTotal, // Update totalAmount
+            due: parseFloat(dueAmount) > 0 ? parseFloat(dueAmount) : 0, // Ensure due is not negative
+        }));
+    }, [formData.subtotal, formData.discount, formData.vat, formData.transport, formData.cashPaid]);
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        // Create a new object to combine formData, selectedCustomer, and productsDetails (as an array)
+        const salesData = {
+            ...formData,
+            ...selectedCustomer,
+            products: productsDetails,  // Send productsDetails as an array
+        };
+
+        try {
+            const res = await axios.post('http://localhost:5000/sales', salesData);
+            console.log("Form Data sent to backend:", res.data);
+        } catch (err) {
+            console.error("Error submitting form:", err);
+        }
+    };
+
+
     return (
-        <>
+        <form onSubmit={handleSubmit}>
             <div className="bg-blue-200 p-4 rounded text-sm">
                 <h2 className="font-bold mb-2">লেনদেন তথ্য </h2>
+
                 <div className="mb-1 flex items-center">
                     <label htmlFor="subtotal" className="mr-2 w-[20%]">
-                       সাময়িক টাকা 
+                        সাময়িক টাকা
                     </label>
                     <input
                         type="number"
                         id="subtotal"
                         name="subtotal"
+                        readOnly={true}
                         value={formData.subtotal}
                         onChange={handleInputChange}
                         placeholder="0"
-                        className="border p-1 rounded w-[80%]"
+                        className="border p-1 rounded w-[80%] outline-none bg-gray-500/30"
                     />
                 </div>
 
                 <div className="mb-1 flex items-center">
                     <label htmlFor="discount" className="mr-2 w-[20%]">
-                        কমিশন 
+                        কমিশন
                     </label>
                     <div className="flex gap-2 w-[80%] items-center">
                         <input
@@ -59,7 +124,7 @@ const Amount = () => {
 
                 <div className="mb-1 flex items-center">
                     <label htmlFor="vat" className="mr-2 w-[20%]">
-                        ভ্যাট 
+                        ভ্যাট
                     </label>
                     <div className="flex gap-2 w-[80%] items-center">
                         <input
@@ -77,7 +142,7 @@ const Amount = () => {
 
                 <div className="mb-1">
                     <label htmlFor="transport" className="mr-2">
-                        পরিবহন / লেবার খরচ 
+                        পরিবহন / লেবার খরচ
                     </label>
                     <input
                         type="number"
@@ -92,22 +157,22 @@ const Amount = () => {
 
                 <div className="mb-1">
                     <label htmlFor="totalAmount" className="mr-2">
-                        মোট টাকা 
+                        মোট টাকা
                     </label>
                     <input
                         type="number"
                         id="totalAmount"
                         name="totalAmount"
+                        readOnly={true}
                         value={formData.totalAmount}
-                        onChange={handleInputChange}
                         placeholder="0"
-                        className="border p-1 rounded w-full"
+                        className="border p-1 rounded w-full outline-none bg-gray-500/30"
                     />
                 </div>
 
                 <div className="mb-1">
                     <label htmlFor="cashPaid" className="mr-2">
-                       ক্যাশ জমা 
+                        ক্যাশ জমা
                     </label>
                     <input
                         type="number"
@@ -119,16 +184,17 @@ const Amount = () => {
                         className="border p-1 rounded w-full"
                     />
                 </div>
+
                 <div className="mb-1">
                     <label htmlFor="due" className="mr-2 block">
-                        বাকী 
+                        বাকী
                     </label>
                     <input
                         type="number"
                         id="due"
                         name="due"
+                        readOnly={true}
                         value={formData.due}
-                        onChange={handleInputChange}
                         placeholder="0"
                         className="border p-1 rounded w-full"
                     />
@@ -136,21 +202,25 @@ const Amount = () => {
 
                 <div className="mb-1">
                     <label htmlFor="previousDue" className="mr-2">
-                        আগের বাকী 
+                        আগের বাকী
                     </label>
                     <input
                         type="number"
                         id="previousDue"
                         name="previousDue"
-                        value={formData.PreviousDue}
+                        value={formData.previousDue}
                         onChange={handleInputChange}
                         placeholder="0"
-                        className="border p-1 rounded w-full"
+                        readOnly
+                        className="border p-1 rounded w-full outline-none bg-black/50"
                     />
                 </div>
-                <button className="bg-[#22C55E] py-3 px-2 mt-2 font-semibold text-white">বিক্রি নিশ্চিত করুন </button>
+
+                <button type="submit" className="bg-[#22C55E] py-3 px-2 mt-2 font-semibold text-white">
+                    বিক্রি নিশ্চিত করুন
+                </button>
             </div>
-        </>
+        </form>
     );
 };
 

@@ -136,7 +136,7 @@ export default function AddProducts() {
           {/* Product Qty */}
           <div className="flex flex-col">
             <label htmlFor="productQty" className="text-md ">
-              প্রোডাক্ট পিছ :
+              প্রোডাক্ট স্টক :
             </label>
             <input
               type="text"

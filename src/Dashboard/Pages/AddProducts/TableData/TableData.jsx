@@ -55,15 +55,15 @@ export default function TableData() {
       <div className="max-w-full mx-auto p-4 bg-white shadow-lg rounded-lg">
         <table className="table-auto w-full border-collapse border border-teal-400">
           <thead>
-            <tr className="bg-teal-600 text-white">
+            <tr className="bg-teal-600 text-white text-sm">
               <th className="p-1">ক্রমিক নং </th>
               <th className="p-1">প্রোডাক্ট কোড </th>
               <th className="p-1">প্রোডাক্ট নাম</th>
               <th className="p-1">প্রোডাক্টের শ্রেণী</th>
+              <th className="p-1">স্টকের পরিমান </th>
               <th className="p-1">ক্রয় মূল্য </th>
               <th className="p-1">খুচরা বিক্রয় মূল্য</th>
               <th className="p-1">পাইকারি বিক্রয় মূল্য</th>
-              <th className="p-1">স্টকের পরিমান </th>
               <th className="p-1"> প্রক্রিয়া </th>
             </tr>
           </thead>
@@ -74,10 +74,10 @@ export default function TableData() {
                 <td className="border px-4 py-2">{product.productCode}</td>
                 <td className="border px-4 py-2">{product.productName}</td>
                 <td className="border px-4 py-2">{product.productCategory}</td>
+                <td className="border px-4 py-2">{product.productQty}</td>
                 <td className="border px-4 py-2">{product.buyRate}</td>
                 <td className="border px-4 py-2">{product.saleRate}</td>
                 <td className="border px-4 py-2">{product.wholeSales}</td>
-                <td className="border px-4 py-2">Pcs</td>
                 <td className="border px-4 py-2">
                   <div className="">
                     <Link to={`/update-product/${product._id}`}
