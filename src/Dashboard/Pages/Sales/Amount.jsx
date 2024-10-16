@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../../provider/useAuth";
 import axios from "axios";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const Amount = () => {
-    const { selectedCustomer, subtotalAmount, productsDetails } = useAuth();
+    const { selectedCustomer, subtotalAmount, productsDetails, setInvoiceId } = useAuth();
+    const navigate = useNavigate(); // Initialize navigate function
 
     const [formData, setFormData] = useState({
         subtotal: 0,
@@ -75,8 +78,30 @@ const Amount = () => {
         };
 
         try {
-            const res = await axios.post('http://localhost:5000/sales', salesData);
-            console.log("Form Data sent to backend:", res.data);
+            Swal.fire({
+                title: "আপনি কি ক্রয় করবেন?",
+                text: "তাহলে কিন্ত ওকে করে দিলাম!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "হ্যাঁ!"
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    const res = await axios.post('http://localhost:5000/sales', salesData);
+                    const productId = res?.data?.productId;
+                    setInvoiceId(productId); // Store productId
+                    console.log("Form Data sent to backend:", res.data);
+                    Swal.fire({
+                        title: "প্রিন্ট হবে !",
+                        text: "ডকুমেন্ট প্রিন্টের জন্য প্রস্তুত ",
+                        icon: "success"
+                    });
+
+                    // Navigate to the new route using the productId
+                    navigate(`/products/${productId}`); // Redirect to the new route with productId
+                }
+            });
         } catch (err) {
             console.error("Error submitting form:", err);
         }

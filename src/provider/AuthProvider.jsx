@@ -90,10 +90,11 @@ const AuthProvider = ({ children }) => {
         return () => unsubscribe();
     }, []);
 
-    // here have some functionality from zahid
+    // here have some স্টেট 
     const [selectedCustomer, setSelectedCustomer] = useState(null);
     const [productsDetails, setProductsDetails] = useState([])
     const [subtotalAmount, setSubtotalAmount] = useState(null)
+    const [invoiceId, setInvoiceId] = useState('')
 
     // console.log(selectedCustomer);
 
@@ -112,7 +113,9 @@ const AuthProvider = ({ children }) => {
         signIn,
         logOut,
         updateUserProfile,
-        saveUser
+        saveUser,
+        invoiceId,
+        setInvoiceId,
     }
 
 

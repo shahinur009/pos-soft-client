@@ -18,6 +18,7 @@ import Sales from "../Dashboard/Pages/Sales/Sales";
 import UpdateProduct from "../Dashboard/Pages/UpdateProducts/UpdateProduct";
 import ProductsList from "../Dashboard/Pages/ProductList/ProductList";
 import AddCustomer from "../Dashboard/Pages/AddCustomer/AddCustomer";
+import SalesInvoice from "../Dashboard/Pages/SalesInvoice/SalesInvoice";
 
 
 
@@ -57,6 +58,10 @@ export const router = createBrowserRouter([
             {
                 path: 'sales',
                 element: <Sales />
+            },
+            {
+                path: 'sales/sales-print',
+                element: <SalesInvoice />
             },
             {
                 path: 'all-products',
