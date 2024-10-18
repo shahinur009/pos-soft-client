@@ -4,6 +4,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 
+
 const Amount = () => {
     const { selectedCustomer, subtotalAmount, productsDetails, setInvoiceId } = useAuth();
     const navigate = useNavigate(); // Initialize navigate function
@@ -99,7 +100,7 @@ const Amount = () => {
                     });
 
                     // Navigate to the new route using the productId
-                    navigate(`/products/${productId}`); // Redirect to the new route with productId
+                    navigate(`/dashboard/sales-print/${productId}`); // Redirect to the new route with productId
                 }
             });
         } catch (err) {

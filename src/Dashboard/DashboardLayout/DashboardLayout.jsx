@@ -10,8 +10,6 @@ const DashboardLayout = () => {
                     <li><Link to='add-product'>পণ্য যোগ করুন</Link></li>
                     <li><Link to="products-list">সকল পণ্য</Link></li>
                     <li><Link>সকল বিক্রয় রিপোর্ট</Link></li>
-                    <li><Link>রিটার্ন পণ্য যোগ করুন</Link></li>
-                    <li><Link>সকল রিটার্ন পণ্য</Link></li>
                     <li><Link to='customer-info'>গ্রাহক রিপোর্ট</Link></li>
 
                 </ul>

@@ -8,7 +8,13 @@ export default function AddCustomer() {
         customerName: "",
         address: "",
         mobile: "",
-        PreviousDue: "",
+        GranterName1: "",
+        GranterName2: "",
+        GranterNumber1: "",
+        GranterNumber2: "",
+        picture: "",
+        granterPicture1: "",
+        granterPicture2: "",
     });
 
     const handleInputChange = (e) => {
@@ -19,10 +25,10 @@ export default function AddCustomer() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const { customerName, address, mobile, PreviousDue } = formCustomerData;
+        const { customerName, address, mobile, GranterName1, GranterName2 } = formCustomerData;
 
         // Basic validation to check if all fields are filled
-        if (!customerName || !address || !mobile || !PreviousDue) {
+        if (!customerName || !address || !mobile || !GranterName1 || GranterName2) {
             Swal.fire({
                 icon: "error",
                 title: "All fields are required",
@@ -50,7 +56,7 @@ export default function AddCustomer() {
                 customerName: "",
                 address: "",
                 mobile: "",
-                PreviousDue: "",
+                GranterName: "",
             });
         } catch (error) {
             Swal.fire({
@@ -88,6 +94,21 @@ export default function AddCustomer() {
                                 className="py-2 px-3 block outline-none rounded-sm border border-teal-400"
                             />
                         </div>
+                        <div className="flex flex-col">
+                            <label htmlFor="customerName" className="text-md">
+                                কাস্টমার পিতা/স্বামী নাম :
+                            </label>
+                            <input
+                                type="text"
+                                name="customerName"
+                                id="customerName"
+                                value={formCustomerData.customerName}
+                                onChange={handleInputChange}
+                                placeholder="কাস্টমার নাম"
+                                className="py-2 px-3 block outline-none rounded-sm border border-teal-400"
+                            />
+                        </div>
+                        
 
                         {/* ঠিকানা */}
                         <div className="flex flex-col">
@@ -120,19 +141,129 @@ export default function AddCustomer() {
                                 className="py-2 px-3 block outline-none rounded-sm border border-teal-400"
                             />
                         </div>
+                        <div className="flex flex-col">
+                            <label htmlFor="picture" className="text-md">
+                                কাস্টমার ছবি :
+                            </label>
+                            <input
+                                type="file"
+                                name="picture"
+                                id="picture"
+                                value={formCustomerData.picture}
+                                onChange={handleInputChange}
+                                className="py-2 px-3 block outline-none rounded-sm border border-teal-400"
+                            />
+                        </div> 
 
                         {/* আগের বকেয়া */}
                         <div className="flex flex-col">
-                            <label htmlFor="PreviousDue" className="text-md">
-                                আগের বকেয়া :
+                            <label htmlFor="GranterName" className="text-md">
+                                জামিনদারের নাম-১ :
                             </label>
                             <input
                                 type="text"
-                                name="PreviousDue"
-                                id="PreviousDue"
-                                value={formCustomerData.PreviousDue}
+                                name="GranterName"
+                                id="GranterName"
+                                value={formCustomerData.GranterName1}
                                 onChange={handleInputChange}
-                                placeholder="আগের বকেয়া"
+                                placeholder="জামিনদারের নাম"
+                                className="py-2 px-3 block outline-none rounded-sm border border-teal-400"
+                            />
+                        </div>
+                        <div className="flex flex-col">
+                            <label htmlFor="GranterName" className="text-md">
+                                জামিনদারের নাম্বার-১ :
+                            </label>
+                            <input
+                                type="text"
+                                name="GranterName" 
+                                id="GranterName"
+                                value={formCustomerData.GranterName1}
+                                onChange={handleInputChange}
+                                placeholder="জামিনদারের নাম"
+                                className="py-2 px-3 block outline-none rounded-sm border border-teal-400"
+                            />
+                        </div>
+                        <div className="flex flex-col">
+                            <label htmlFor="GranterName" className="text-md">
+                                জামিনদারের ঠিকানা-১ : 
+                            </label>
+                            <input
+                                type="text"
+                                name="GranterName" 
+                                id="GranterName"
+                                value={formCustomerData.GranterName1}
+                                onChange={handleInputChange}
+                                placeholder="জামিনদারের নাম"
+                                className="py-2 px-3 block outline-none rounded-sm border border-teal-400"
+                            />
+                        </div>
+                        <div className="flex flex-col">
+                            <label htmlFor="granterPicture1" className="text-md">
+                                জামিনদারের ছবি-১:
+                            </label>
+                            <input
+                                type="file"
+                                name="granterPicture1"
+                                id="granterPicture1"
+                                value={formCustomerData.granterPicture1}
+                                onChange={handleInputChange}
+                                className="py-2 px-3 block outline-none rounded-sm border border-teal-400"
+                            />
+                        </div>
+                        <div className="flex flex-col">
+                            <label htmlFor="GranterName2" className="text-md">
+                                জামিনদারের নাম-২ :
+                            </label>
+                            <input
+                                type="text"
+                                name="GranterName2"
+                                id="GranterName2"
+                                value={formCustomerData.GranterName2}
+                                onChange={handleInputChange}
+                                placeholder="জামিনদারের নাম-২"
+                                className="py-2 px-3 block outline-none rounded-sm border border-teal-400"
+                            />
+                        </div>
+                        <div className="flex flex-col">
+                            <label htmlFor="GranterNumber2" className="text-md">
+                                জামিনদারের মোবাইল-২ :
+                            </label>
+                            <input
+                                type="text"
+                                name="GranterNumber2"
+                                id="GranterNumber2"
+                                value={formCustomerData.GranterNumber2}
+                                onChange={handleInputChange}
+                                placeholder="জামিনদারের মোবাইল-২ "
+                                className="py-2 px-3 block outline-none rounded-sm border border-teal-400"
+                            />
+                        </div>
+                        <div className="flex flex-col">
+                            <label htmlFor="GranterName" className="text-md">
+                                জামিনদারের ঠিকানা-২: 
+                            </label>
+                            <input
+                                type="text"
+                                name="GranterName" 
+                                id="GranterName"
+                                value={formCustomerData.GranterName1}
+                                onChange={handleInputChange}
+                                placeholder="জামিনদারের নাম"
+                                className="py-2 px-3 block outline-none rounded-sm border border-teal-400"
+                            />
+                        </div>
+
+                        <div className="flex flex-col">
+                            <label htmlFor="granterPicture2" className="text-md">
+                                জামিনদারের ছবি-২ :
+                            </label>
+                            <input
+                                type="file"
+                                name="granterPicture2"
+                                id="granterPicture2"
+                                value={formCustomerData.granterPicture2}
+                                onChange={handleInputChange}
                                 className="py-2 px-3 block outline-none rounded-sm border border-teal-400"
                             />
                         </div>

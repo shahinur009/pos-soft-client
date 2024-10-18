@@ -51,18 +51,18 @@ export const router = createBrowserRouter([
                 path: 'add-product',
                 element: <AddProducts />
             },
-            // {
-            //     path: 'update-product/:id',
-            //     element: <UpdateProduct />
-            // },
             {
                 path: 'sales',
                 element: <Sales />
             },
             {
-                path: 'sales/sales-print',
+                path: 'sales-print/:id',
                 element: <SalesInvoice />
             },
+            {
+                path: 'sales-print/:id',  // Dynamic route for Sales Invoice
+                element: <SalesInvoice />
+              },
             {
                 path: 'all-products',
                 element: <AllProducts />
