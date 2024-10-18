@@ -173,12 +173,20 @@ export default function AddProducts() {
             <input
               type="number"
               name="buyRate"
-              id="buyRate"
               value={formData.buyRate}
               onChange={handleInputChange}
               placeholder="ক্রয় রেট প্রদান করুন"
               className="py-2 px-3 block outline-none rounded-sm border border-teal-400"
             />
+            {/* <input
+              type="number"
+              name="buyRate"
+              id="buyRate"
+              value={formData.buyRate}
+              onChange={handleInputChange}
+              placeholder="ক্রয় রেট প্রদান করুন"
+              className="py-2 px-3 block outline-none rounded-sm border border-teal-400"
+            /> */}
           </div>
 
           {/* Sale Rate */}

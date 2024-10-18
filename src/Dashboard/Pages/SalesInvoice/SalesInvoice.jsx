@@ -33,6 +33,7 @@ const SalesInvoice = () => {
         }
     }, [salesData]);
 
+    // Print Invoice here.....
     const printInvoice = () => {
         const printContents = invoiceRef.current.innerHTML;
         const originalContents = document.body.innerHTML;
@@ -46,7 +47,7 @@ const SalesInvoice = () => {
 
     return (
         <div className="max-w-4xl mx-auto p-4 bg-white shadow-lg rounded-lg">
-            <div ref={invoiceRef} className="p-4 relative z-10">
+            <div ref={invoiceRef} className="p-2 relative z-10">
                 {/* Header */}
                 <div className="flex justify-between items-center border-b pb-4">
                     <div>
@@ -128,45 +129,84 @@ const SalesInvoice = () => {
                         </tbody>
                     </table>
                 </div>
-
                 {/* Total Section */}
                 {salesData && (
-                    <div className="mt-6 space-y-2 text-sm text-end">
-                        <p>
-                            <strong>টাকা:</strong> {salesData?.subtotal} <span className="text-xl">৳</span>{' '}
-                        </p>
-                        <p>
-                            <strong>কমিশন:</strong> {salesData?.discount} <span className="text-xl">৳</span>
-                        </p>
-                        <p>
-                            <strong>ভ্যাট :</strong> {salesData?.vat} %
-                        </p>
-                        <p>
-                            <strong>লেবার/ গাড়ি বিল :</strong> {salesData?.transport} <span className="text-xl">৳</span>
-                        </p>
-                        <p>
-                            <strong>জমার পরিমাণ:</strong> {salesData?.cashPaid} <span className="text-xl">৳</span>
-                        </p>
-                        <p>
-                            <strong>বাকী :</strong> {salesData?.due} <span className="text-xl">৳</span>
-                        </p>
-                        <p>
-                            <strong>মোট টাকা:</strong> {salesData?.totalAmount} <span className="text-xl">৳</span>
-                        </p>
+                    <div className="mt-6 flex justify-end p-[1px]">
+                        <table className="w-auto table-auto border-collapse ">
+                            <tbody>
+                                <tr className="border border-gray-500">
+                                    <td className="text-right pr-4 px-2">
+                                        <strong>টাকা:</strong>
+                                    </td>
+                                    <td className="text-right px-4 font-semibold">
+                                        {salesData?.subtotal} <span className="font-extrabold"> ৳</span> </td>
+                                </tr>
+                                <tr className="border border-gray-500">
+                                    <td className="text-right pr-4 px-2">
+                                        <strong>কমিশন:</strong>
+                                    </td>
+                                    <td className="text-right px-4">{salesData?.discount}<span className="font-extrabold"> ৳</span> </td>
+                                </tr>
+                                <tr className="border border-gray-500">
+                                    <td className="text-right pr-4 px-2">
+                                        <strong>ভ্যাট:</strong>
+                                    </td>
+                                    <td className="text-right px-4">{salesData?.vat}<span className="font-extrabold"> %</span> </td>
+                                </tr>
+                                <tr className="border border-gray-500">
+                                    <td className="text-right pr-4 px-2">
+                                        <strong>লেবার/গাড়ি বিল:</strong>
+                                    </td>
+                                    <td className="text-right px-4">{salesData?.transport}<span className="font-extrabold"> ৳</span> </td>
+                                </tr>
+                                <tr className="border border-gray-500">
+                                    <td className="text-right pr-4 px-2">
+                                        <strong>জমার পরিমাণ:</strong>
+                                    </td>
+                                    <td className="text-right px-4">{salesData?.cashPaid}<span className="font-extrabold"> ৳</span> </td>
+                                </tr>
+                                <tr className="border border-gray-500">
+                                    <td className="text-right pr-4  px-2">
+                                        <strong>বাকী:</strong>
+                                    </td>
+                                    <td className="text-right px-4">{salesData?.due}<span className="font-extrabold"> ৳</span> </td>
+                                </tr>
+                                <tr className="border border-gray-500">
+                                    <td className="text-right pr-4  px-2">
+                                        <strong>মোট টাকা:</strong>
+                                    </td>
+                                    <td className="text-right px-4">{salesData?.totalAmount}<span className="font-extrabold"> ৳</span> </td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
                     </div>
                 )}
+                <div className="flex justify-end items-center  font-semibold p-2">
+                    <p>সীল ও সিগনেচার </p>
+                </div>
+                {/* Footer */}
+                {/* Amount in Words */}
+                <div className="mt-4 font-semibold">
+                    <p>
+                        কথায় :
+                        <span className='text-sm'>
+                            {banglaWord}
+                            টাকা মাত্র ।
+                        </span>
+                    </p>
+                </div>
 
                 {/* Footer */}
-                <div className="mt-8">
-                    <p>
-                        <strong>কথায় :</strong> {banglaWord} মাত্র ।
-                    </p>
-                    <textarea name="Note" id="" className='border-2 rounded'>
-                        মন্তব্য :
-                    </textarea>
-                </div>
-            </div>
 
+                <div className="mt-6 text-center items-baseline border-2 border-gray-800 bg-gray-200">
+                    <p className="font-semibold py-[2px]">
+                        আপনাকে ধন্যবাদ । আবার আসবেন !
+                    </p>
+                </div>
+
+            </div>
             {/* Print Button */}
             <div className="mt-4 text-center">
                 <button
@@ -179,5 +219,4 @@ const SalesInvoice = () => {
         </div>
     );
 };
-
 export default SalesInvoice;
