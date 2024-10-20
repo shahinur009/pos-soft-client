@@ -1,5 +1,6 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function CustomerTable() {
     const [customers, setCustomers] = useState([]);
@@ -65,19 +66,22 @@ export default function CustomerTable() {
                             <th className="py-3 px-6 text-left">নাম</th>
                             <th className="py-3 px-6 text-left">মোবাইল</th>
                             <th className="py-3 px-6 text-left">ঠিকানা</th>
-                            <th className="py-3 px-6 text-left">পণ্য</th>
-                            <th className="py-3 px-6 text-left">পরিমাণ</th>
-                            <th className="py-3 px-6 text-left">দর</th>
-                            <th className="py-3 px-6 text-left">মোট টাকা</th>
-                            <th className="py-3 px-6 text-left">বাকী</th>
-                            <th className="py-3 px-6 text-left">জমা</th>
                             <th className="py-3 px-6 text-left">মোট বাকী</th>
+                            <th className="py-3 px-6 text-left">জমা </th>
+                            <th className="py-3 px-6 text-left">বিবরণ </th>
+
+                            {/* <th className="py-3 px-6 text-left">পণ্য</th>
+                            <th className="py-3 px-6 text-left">পরিমাণ</th> */}
+                            {/* <th className="py-3 px-6 text-left">দর</th> */}
+                            {/* <th className="py-3 px-6 text-left">মোট টাকা</th>
+                            <th className="py-3 px-6 text-left">বাকী</th>
+                            <th className="py-3 px-6 text-left">জমা</th> */}
                         </tr>
                     </thead>
 
                     <tbody>
                         {filteredCustomers.map((customer, index) => {
-                            const { productNames, totalQty, totalRate, totalAmount } = getProductSummary(customer.products);
+                            const { productNames, totalQty, totalRate, totalAmount, _id } = getProductSummary(customer.products);
 
                             return (
                                 <tr key={customer._id} className="bg-gray-100">
@@ -85,13 +89,20 @@ export default function CustomerTable() {
                                     <td className="py-3 px-6">{customer.label}</td>
                                     <td className="py-3 px-6">{customer.mobile}</td>
                                     <td className="py-3 px-6">{customer.address}</td>
-                                    <td className="py-3 px-6">{productNames}</td> {/* Product names comma-separated */}
-                                    <td className="py-3 px-6">{totalQty}</td> {/* Quantities comma-separated */}
-                                    <td className="py-3 px-6">{totalRate}</td> {/* Rates comma-separated */}
-                                    <td className="py-3 px-6">{totalAmount}</td> {/* Total amount (summed) */}
+                                    {/* <td className="py-3 px-6">{productNames}</td> */}
+                                    {/* <td className="py-3 px-6">{totalQty}</td> */}
+                                    {/* <td className="py-3 px-6">{totalRate}</td>  */}
+                                    {/* <td className="py-3 px-6">{totalAmount}</td> */}
                                     <td className="py-3 px-6">{customer.due}</td>
-                                    <td className="py-3 px-6">{customer.cashPaid}</td>
-                                    <td className="py-3 px-6">{customer.due}</td>
+                                    <td>
+                                        <input type="text" className='w-[50%] border-lime-200 border-2 p-2 rounded-md' name="joma" id="" />
+                                        <span className='bg-lime-400 ml-3 p-2'>জমা করুন </span>
+                                    </td>
+                                    <td>
+                                        <Link to={`customer-details/${_id}`} className='bg-lime-400 p-2'>সব দেখুন </Link>
+                                    </td>
+                                    {/* <td className="py-3 px-6">{customer.cashPaid}</td> */}
+                                    {/* <td className="py-3 px-6">{customer.due}</td> */}
                                 </tr>
                             );
                         })}

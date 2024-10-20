@@ -2,9 +2,9 @@ import { Link, Outlet } from "react-router-dom";
 
 const DashboardLayout = () => {
     return (
-        <div className="flex gap-4">
-            <div className="w-[15%] bg-green-400 h-screen">
-                <ul>
+        <div className="flex">
+            <div className="w-[15%] bg-[#5bb902] h-screen ">
+                <ul className="space-y-4 items-center text-md p-2 text-gray-100 font-semibold">
                     <li><Link to='/dashboard'>Home</Link></li>
                     <li><Link to='sales'>বিক্রয় এন্ট্রি</Link></li>
                     <li><Link to='add-product'>পণ্য যোগ করুন</Link></li>
@@ -14,7 +14,7 @@ const DashboardLayout = () => {
 
                 </ul>
             </div>
-            <div className="w-[85%] pr-5">
+            <div className="w-[85%] pr-4">
                 <Outlet />
             </div>
         </div>
