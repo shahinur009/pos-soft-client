@@ -8,7 +8,6 @@ const CustomerInfo = () => {
     const { selectedCustomer, setSelectedCustomer } = useAuth()
     const [formData, setFormData] = useState({
         salesType: "retail",
-        PreviousDue: "",
         name: "",
         mobile: "",
         address: "",
@@ -36,7 +35,6 @@ const CustomerInfo = () => {
             name: selectedOption.label, // Assuming customer name is the label
             mobile: selectedOption.mobile, // Fill mobile from selected customer
             address: selectedOption.address, // Fill address from selected customer
-            PreviousDue: selectedOption.PreviousDue, // Fill Previous Due from selected customer
         });
     };
 
@@ -54,7 +52,6 @@ const CustomerInfo = () => {
         label: customer.customerName, // Use customer name as label
         mobile: customer.mobile,
         address: customer.address,
-        PreviousDue: customer.PreviousDue,
     }));
 
     return (
@@ -101,22 +98,6 @@ const CustomerInfo = () => {
                         className="border p-1 rounded w-[80%]"
                     />
                 </div>
-
-                {/* Previous Due */}
-                <div className="mb-2 flex items-center justify-center gap-2">
-                    <label htmlFor="previousDue" className="mr-2 w-[20%]">
-                        আগের জের
-                    </label>
-                    <input
-                        type="number"
-                        id="previousDue"
-                        name="PreviousDue"
-                        value={formData.PreviousDue}
-                        onChange={handleInputChange}
-                        className="border p-1 rounded w-[80%]"
-                    />
-                </div>
-
                 {/* Address */}
                 <div className="flex items-center justify-center gap-2">
                     <label htmlFor="address" className="mr-2 w-[20%]">
