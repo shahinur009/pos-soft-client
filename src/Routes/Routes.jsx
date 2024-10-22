@@ -19,6 +19,7 @@ import UpdateProduct from "../Dashboard/Pages/UpdateProducts/UpdateProduct";
 import ProductsList from "../Dashboard/Pages/ProductList/ProductList";
 import AddCustomer from "../Dashboard/Pages/AddCustomer/AddCustomer";
 import SalesInvoice from "../Dashboard/Pages/SalesInvoice/SalesInvoice";
+import ProductsBuy from "../Dashboard/Pages/ProductsBuy/ProductsBuy";
 
 
 
@@ -60,9 +61,13 @@ export const router = createBrowserRouter([
                 element: <SalesInvoice />
             },
             {
-                path: 'sales-print/:id',  // Dynamic route for Sales Invoice
+                path: 'sales-print/:id',
                 element: <SalesInvoice />
-              },
+            },
+            {
+                path: 'buy-products-info',
+                element: <ProductsBuy />
+            },
             {
                 path: 'all-products',
                 element: <AllProducts />

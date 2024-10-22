@@ -74,7 +74,7 @@ export default function CustomerTable() {
 
                     <tbody>
                         {filteredCustomers.map((customer, index) => {
-                            const { productNames, totalQty, totalRate, totalAmount, _id, PreviousDue, mobile, label, address, due } = getProductSummary(customer.products);
+                            const { _id,  mobile, label, address, due } = getProductSummary(customer.products);
 
                             return (
                                 <tr key={customer._id} className="bg-gray-100">
