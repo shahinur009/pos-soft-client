@@ -26,10 +26,10 @@ export default function TableData() {
         title: "ডিলেট করতে চান?",
         text: "ডিলেট হয়ে যাবে প্রোডাক্ট ",
         icon: "warning",
-        showCancelButton: true, 
+        showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Delete!" 
+        confirmButtonText: "Delete!"
       }).then((result) => {
         if (result.isConfirmed) {
           Swal.fire({
@@ -81,7 +81,7 @@ export default function TableData() {
                 <td className="border px-4 py-2">
                   <div className="">
                     <Link to={`/update-product/${product._id}`}
-                      className="bg-[#006A62] text-white w-[134px] p-1 block rounded mb-2">পরিবর্তন করুন</Link> 
+                      className="bg-[#006A62] text-white w-[134px] p-1 block rounded mb-2">পরিবর্তন করুন</Link>
                     <button
                       className="bg-red-500 text-white w-[134px] p-1 rounded mt-2"
                       onClick={() => deleteProduct(product._id)}

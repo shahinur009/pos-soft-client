@@ -8,9 +8,9 @@ const TableSalesEntry = () => {
 
     return (
         <div className="table-section mt-9">
-            <table className="min-w-full border-collapse border border-gray-300">
+            <table className="min-w-full border-collapse border border-gray-300 ">
                 <thead>
-                    <tr>
+                    <tr className="bg-red-200">
                         <th className="border border-gray-300 p-2">No. </th>
                         <th className="border border-gray-300 p-2">Product</th>
                         <th className="border border-gray-300 p-2">Quantity</th>

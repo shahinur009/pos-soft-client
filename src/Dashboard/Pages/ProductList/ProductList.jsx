@@ -2,17 +2,16 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 const ProductsList = () => {
-    const [categories, setCategories] = useState([]); // To hold distinct categories
-    const [selectedCategory, setSelectedCategory] = useState(""); // Selected category
-    const [products, setProducts] = useState([]); // To hold products based on the category
+    const [categories, setCategories] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState("");
+    const [products, setProducts] = useState([]);
 
     // Fetch categories from the backend
     const fetchCategories = async () => {
         try {
-            const response = await axios.get("http://localhost:5000/products-report"); // Fetch all products
+            const response = await axios.get("http://localhost:5000/products-report");
             const allProducts = response.data;
 
-            // Extract distinct categories from the products
             const distinctCategories = [
                 ...new Set(allProducts.map(product => product.productCategory))
             ];
@@ -23,44 +22,41 @@ const ProductsList = () => {
         }
     };
 
-    // Fetch products based on the selected category or all products if no category is selected
+
     const fetchProducts = async (category) => {
         try {
             const response = await axios.get("http://localhost:5000/products-report", {
-                params: { category } // If category is empty, it'll fetch all products
+                params: { category }
             });
-            setProducts(response.data); // Set the products state
+            setProducts(response.data);
         } catch (error) {
             console.error("Error fetching products:", error);
         }
     };
 
-    // Fetch categories when component mounts
     useEffect(() => {
         fetchCategories();
     }, []);
 
-    // Fetch products whenever the selected category changes
+
     useEffect(() => {
         fetchProducts(selectedCategory);
     }, [selectedCategory]);
 
     return (
         <section>
-            <div className="flex space-x-4 items-center p-4 rounded-lg my-5 bg-gray-300 border border-black/90 relative">
-                <p className="absolute -top-4 left-5 text-xl font-semibold bg-[#D1D5DB] h-4">
-                    Products List
-                </p>
+            <div className="flex space-x-4 items-center p-4 my-5 bg-red-200 relative">
+
                 <p className="text-lg">সব প্রোডাক্ট দেখুন </p>
 
                 <select
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
-                    className="block w-48 p-2 rounded outline-none border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    className="block w-48 p-2 rounded outline-none sm:text-sm bg-[#dc4b76f5] text-white"
                 >
-                    <option value="">-- সব প্রোডাক্ট --</option> {/* Option to show all products */}
+                    <option value="">-- সব প্রোডাক্ট --</option>
                     {categories.map((category, index) => (
-                        <option key={index} value={category}>
+                        <option key={index} value={category} >
                             {category}
                         </option>
                     ))}
@@ -69,25 +65,25 @@ const ProductsList = () => {
 
             {/* Display products in a table */}
             <div>
-                <table className="min-w-full bg-white border-collapse">
+                <table className="min-w-full border-collapse text-sm">
                     <thead>
-                        <tr>
-                            <th className="py-2 px-4 bg-[#146C94] text-white border border-gray-300">
-                            প্রোডাক্ট কোড 
+                        <tr className="bg-red-200 font-normal">
+                            <th className="p-2">
+                                প্রোডাক্ট কোড
                             </th>
-                            <th className="py-2 px-4 bg-[#146C94] text-white border border-gray-300">
-                            প্রোডাক্ট নাম 
+                            <th className="p-2">
+                                প্রোডাক্ট নাম
                             </th>
-                            <th className="py-2 px-4 bg-[#146C94] text-white border border-gray-300">
-                            প্রোডাক্টের শ্রেণী 
+                            <th className="p-2">
+                                প্রোডাক্টের শ্রেণী
                             </th>
-                            <th className="py-2 px-4 bg-[#146C94] text-white border border-gray-300">
+                            <th className="p-2">
                                 ক্রয় দাম
                             </th>
-                            <th className="py-2 px-4 bg-[#146C94] text-white border border-gray-300">
+                            <th className="p-2">
                                 খুচরা বিক্রয় দাম
                             </th>
-                            <th className="py-2 px-4 bg-[#146C94] text-white border border-gray-300">
+                            <th className="p-2">
                                 পাইকারি বিক্রয় দাম
                             </th>
                         </tr>
@@ -111,7 +107,7 @@ const ProductsList = () => {
                                     {product.saleRate}
                                 </td>
                                 <td className="py-2 px-4 text-center border border-gray-300">
-                                {product.wholeSales}
+                                    {product.wholeSales}
                                 </td>
                             </tr>
                         ))}

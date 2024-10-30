@@ -7,12 +7,21 @@ import { useAuth } from "../../../provider/useAuth";
 const CustomerInfo = () => {
     const { selectedCustomer, setSelectedCustomer } = useAuth()
     const [formData, setFormData] = useState({
-        salesType: "retail",
         name: "",
-        mobile: "",
+        totalDue: "",
         address: "",
+        fatherOrHusbandName: "",
+        mobile: "",
+        GranterName1: "",
+        GranterName2: "",
+        GranterNumber1: "",
+        GranterNumber2: "",
+        picture: "",
+        granterPicture1: "",
+        granterPicture2: "",
     });
-    const [customers, setCustomers] = useState([]); // State to store customers from MongoDB
+
+    const [customers, setCustomers] = useState([]);
 
     // Fetch customers from MongoDB
     useEffect(() => {
@@ -32,9 +41,18 @@ const CustomerInfo = () => {
         setSelectedCustomer(selectedOption); // Set selected customer
         setFormData({
             ...formData,
-            name: selectedOption.label, // Assuming customer name is the label
-            mobile: selectedOption.mobile, // Fill mobile from selected customer
-            address: selectedOption.address, // Fill address from selected customer
+            name: selectedOption.label,
+            mobile: selectedOption.mobile,
+            address: selectedOption.address,
+            totalDue: selectedOption.totalDue,
+            fatherOrHusbandName: selectedOption.fatherOrHusbandName,
+            GranterName1: selectedOption.GranterName1,
+            GranterName2: selectedOption.GranterName2,
+            GranterNumber1: selectedOption.GranterNumber1,
+            GranterNumber2: selectedOption.GranterNumber2,
+            picture: selectedOption.picture,
+            granterPicture1: selectedOption.granterPicture1,
+            granterPicture2: selectedOption.granterPicture2,
         });
     };
 
@@ -48,16 +66,25 @@ const CustomerInfo = () => {
 
     // Convert customer data to react-select format
     const customerOptions = customers.map((customer) => ({
-        value: customer._id, // Use customer ID as value
-        label: customer.customerName, // Use customer name as label
+        value: customer._id,
+        label: customer.customerName,
         mobile: customer.mobile,
         address: customer.address,
+        fatherOrHusbandName: customer.fatherOrHusbandName,
+        totalDue: customer.totalDue,
+        GranterName1: customer.GranterName1,
+        GranterName2: customer.GranterName2,
+        GranterNumber1: customer.GranterNumber1,
+        GranterNumber2: customer.GranterNumber2,
+        picture: customer.picture,
+        granterPicture1: customer.granterPicture1,
+        granterPicture2: customer.granterPicture2,
     }));
 
     return (
         <div>
-            <div className="bg-blue-200 p-2 rounded text-sm">
-                <h2 className="font-bold mb-2">ক্রেতার তথ্য  </h2>
+            <div className="bg-red-200 border border-red-500 p-2 rounded text-sm h-[270px]">
+                <h2 className="font-bold mb-2">ক্রেতার তথ্য</h2>
 
                 {/* Customer Select */}
                 <div className="mb-2 flex items-center justify-center gap-2">
@@ -68,15 +95,15 @@ const CustomerInfo = () => {
                         <Select
                             id="customer"
                             name="customer"
-                            options={customerOptions} // React-select options
-                            value={selectedCustomer} // Set selected customer
-                            onChange={handleCustomerChange} // On customer selection
+                            options={customerOptions}
+                            value={selectedCustomer}
+                            onChange={handleCustomerChange}
                             placeholder="Select Customer"
                             className="w-full"
                         />
                         <Link
                             to="/dashboard/add-customer"
-                            className="bg-green-500 text-white px-[10px] py-1"
+                            className="bg-[#e94374f5] text-white px-[10px] py-1"
                         >
                             +
                         </Link>

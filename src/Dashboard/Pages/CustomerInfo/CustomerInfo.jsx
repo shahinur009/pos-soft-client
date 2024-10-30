@@ -11,7 +11,7 @@ export default function CustomerTable() {
         async function fetchCustomers() {
             try {
                 const response = await axios.get('http://localhost:5000/customers-info');
-                setCustomers(response.data); // Set customer data from API response
+                setCustomers(response.data);
                 console.log(response.data);
             } catch (error) {
                 console.error("Error fetching customer data:", error);
@@ -25,15 +25,11 @@ export default function CustomerTable() {
         customer.label && customer.label.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-    // Helper function to summarize product data
     const getProductSummary = (products) => {
-        // Product names combined by commas
+
         const productNames = products.map(product => product.product).join(', ');
-        // Quantities combined by commas
         const totalQty = products.map(product => product.qty).join(', ');
-        // Rates combined by commas
         const totalRate = products.map(product => product.rate).join(', ');
-        // Summing total amounts
         const totalAmount = products.reduce((sum, product) => sum + Number(product.total), 0);
 
         return {
@@ -46,7 +42,7 @@ export default function CustomerTable() {
 
     return (
         <div className="container mx-auto p-4">
-            <h2 className="text-2xl font-bold mb-4 text-center">Customer List</h2>
+            <h2 className="text-2xl font-bold mb-4 py-3 text-center bg-[#dc4b76f5]">Customer List</h2>
 
             {/* Search input */}
             <input
@@ -54,13 +50,13 @@ export default function CustomerTable() {
                 placeholder="Search by name"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full p-3 mb-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full p-3 mb-4 border border-red-700 rounded-lg shadow-sm bg-red-200 text-black"
             />
 
             {/* Responsive Table */}
             <div className="overflow-x-auto text-sm">
                 <table className="min-w-full bg-white shadow-md rounded-lg">
-                    <thead className="bg-gray-200">
+                    <thead className="bg-red-200">
                         <tr>
                             <th className="py-3 px-6 text-left">ক্রমিক </th>
                             <th className="py-3 px-6 text-left">নাম</th>
@@ -74,7 +70,7 @@ export default function CustomerTable() {
 
                     <tbody>
                         {filteredCustomers.map((customer, index) => {
-                            const { _id,  mobile, label, address, due } = getProductSummary(customer.products);
+                            const { _id, mobile, label, address, due } = getProductSummary(customer.products);
 
                             return (
                                 <tr key={customer._id} className="bg-gray-100">

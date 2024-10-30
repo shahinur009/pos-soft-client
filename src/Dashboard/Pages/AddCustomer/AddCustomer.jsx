@@ -6,6 +6,7 @@ import AddCustomerTableData from "./AddCustomerTableData";
 export default function AddCustomer() {
     const [formCustomerData, setFormCustomerData] = useState({
         customerName: "",
+        totalDue: null,
         fatherOrHusbandName: "",
         address: "",
         mobile: "",
@@ -64,10 +65,14 @@ export default function AddCustomer() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const { customerName, address, mobile, GranterName1, GranterName2 } = formCustomerData;
+        const finalDue = parseInt(formCustomerData.totalDue)
+        console.log(typeof finalDue)
 
-        // Validate required fields
-        if (!customerName || !address || !mobile || !GranterName1 || !GranterName2) {
+
+        const { customerName, fatherOrHusbandName, address, mobile, GranterName1, GranterName2, GranterNumber1, GranterNumber2, picture, granterPicture1, granterPicture2, } = formCustomerData;
+
+        // Validate required fields (excluding images)
+        if (!customerName || !address || !mobile || !GranterName1 || !GranterName2 || !finalDue || !fatherOrHusbandName || !granterPicture1 || !granterPicture2 || !GranterName2 || !GranterNumber2 || !picture || !GranterNumber1) {
             Swal.fire({
                 icon: "error",
                 title: "সবগুলো ফিল্ড পূরণ করতে হবে",
@@ -93,6 +98,8 @@ export default function AddCustomer() {
             // Reset the form after successful submission
             setFormCustomerData({
                 customerName: "",
+                // totalDue: null,
+                finalDue: null,
                 fatherOrHusbandName: "",
                 address: "",
                 mobile: "",
@@ -265,6 +272,18 @@ export default function AddCustomer() {
                                 type="file"
                                 name="granterPicture2"
                                 id="granterPicture2"
+                                onChange={handleInputChange}
+                                className="py-2 px-3 block outline-none rounded-sm border border-teal-400"
+                            />
+                        </div>
+                        {/* Granter Picture 2 */}
+                        <div className="flex flex-col">
+                            <label htmlFor="granterPicture2" className="text-md">বকেয়া
+                            </label>
+                            <input
+                                type="number"
+                                name="totalDue"
+                                id="totalDue"
                                 onChange={handleInputChange}
                                 className="py-2 px-3 block outline-none rounded-sm border border-teal-400"
                             />

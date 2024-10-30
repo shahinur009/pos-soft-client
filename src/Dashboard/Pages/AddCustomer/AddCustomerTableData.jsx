@@ -72,7 +72,7 @@ export default function AddCustomerTableData() {
                                 <td className="border px-4 py-2">{customer.customerName}</td>
                                 <td className="border px-4 py-2">{customer.address}</td>
                                 <td className="border px-4 py-2">{customer.mobile}</td>
-                                <td className="border px-4 py-2">{customer.PreviousDue}</td>
+                                <td className="border px-4 py-2">{customer.totalDue}</td>
                                 <td className="border px-4 py-2">
                                     {/* Formatting the date */}
                                     {new Date(customer.creationDate).toLocaleDateString("en-GB", {
