@@ -90,11 +90,20 @@ const AuthProvider = ({ children }) => {
         return () => unsubscribe();
     }, []);
 
+    // Due amount updated
+    const updateSelectedCustomerDue = (newTotalDue) => {
+        setSelectedCustomer((prevCustomer) => {
+            const updatedCustomer = { ...prevCustomer, totalDue: newTotalDue };
+            return updatedCustomer;
+        });
+    };
+
     // here have some স্টেট 
     const [selectedCustomer, setSelectedCustomer] = useState(null);
     const [productsDetails, setProductsDetails] = useState([])
     const [subtotalAmount, setSubtotalAmount] = useState(null)
     const [invoiceId, setInvoiceId] = useState('')
+
 
     // console.log(selectedCustomer);
 
@@ -116,6 +125,7 @@ const AuthProvider = ({ children }) => {
         saveUser,
         invoiceId,
         setInvoiceId,
+        updateSelectedCustomerDue,
     }
 
 
